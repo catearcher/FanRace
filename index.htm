@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>FANS FANS FANS!</title>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+
+<style type="text/css">
+.clearfix{*zoom:1}.clearfix:before,.clearfix:after{display:table;line-height:0;content:""}.clearfix:after{clear:both}
+
+body {
+  font-family: Consolas, monospace;
+  text-align: center;
+
+  font-size: 50px;
+
+  margin: 0;
+  padding: 0;
+
+  background: #3B5998;
+  color: white;
+}
+
+a {
+  color: white;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.allContainer {
+  margin: 150px auto 0;
+
+  width: 90%;
+}
+
+.likesContainer .likes {
+  width: 40%;
+  float: left;
+}
+
+.likesContainer .likes span {
+  font-size: 150px;
+}
+
+.likesContainer .likes.divider {
+  width: 20%;
+}
+
+</style>
+</head>
+<body>
+<div class="allContainer">
+  <div class="likesContainer clearfix">
+    <div class="likes" id="socialistenLikes">
+      <a href="https://www.facebook.com/diesocialisten" target="_blank">Socialisten</a>
+      <br>
+      <span class="fancount"></span>
+    </div>
+
+    <div class="likes divider">:<br><span>:</span></div>
+
+    <div class="likes" id="otherLikes">
+      <a href="https://www.facebook.com/other" target="_blank"></a>
+      <br>
+      <span class="fancount"></span>
+    </div>
+  </div>
+
+  Missing likes:
+  <span id="missingLikes"></span>
+</div>
+
+<iframe width="560" height="315" src="" style="position: absolute; left: -5000px; top: -5000px;"></iframe>
+
+
+<script src="fanrace.js"></script>
+</body>
+</html>
