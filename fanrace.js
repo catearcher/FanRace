@@ -52,7 +52,7 @@
             var otherLikes = parseInt(res.likes, 10);
             $("#otherLikes .fancount").text(otherLikes.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."));
 
-            $("#missingLikes").text(otherLikes - socialistenLikes);
+            $("#missingLikes").text((otherLikes - socialistenLikes).toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."));
 
             if (!$("iframe").attr("src").length) {
               if (socialistenLikes > otherLikes) {
