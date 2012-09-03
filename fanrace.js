@@ -34,7 +34,7 @@
       dataType: "json",
       success: function(res) {
         var socialistenLikes = parseInt(res.likes, 10);
-        $("#socialistenLikes .fancount").text(socialistenLikes);
+        $("#socialistenLikes .fancount").text(socialistenLikes.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."));
 
         $.ajax({
           url: "https://graph.facebook.com/" + theOthers + "?fields=likes",
@@ -50,7 +50,7 @@
             }
 
             var otherLikes = parseInt(res.likes, 10);
-            $("#otherLikes .fancount").text(otherLikes);
+            $("#otherLikes .fancount").text(otherLikes.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."));
 
             $("#missingLikes").text(otherLikes - socialistenLikes);
 
