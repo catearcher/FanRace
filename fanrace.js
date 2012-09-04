@@ -27,7 +27,7 @@
   };
 
   DOTHIS = function() {
-    var theOthers = params.vs || "webfeuer";
+    var theOthers = params.vs || "limesoda.at";
 
     $.ajax({
       url: "https://graph.facebook.com/diesocialisten?fields=likes",
