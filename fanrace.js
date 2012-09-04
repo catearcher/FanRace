@@ -65,6 +65,11 @@
 
               setTimeout(resizeText, 0);
 
+              setTimeout(function() {
+                $(".footer").css("height", 40);
+              }, 5000);
+              
+
               initComplete = true;
             }
 
