@@ -13,10 +13,10 @@
 .clearfix{*zoom:1}.clearfix:before,.clearfix:after{display:table;line-height:0;content:""}.clearfix:after{clear:both}
 
 * {
-  -webkit-transition: margin-top 1.5s ease-in-out;
-  -moz-transition: margin-top 1.5s ease-in-out;
-  -o-transition: margin-top 1.5s ease-in-out;
-  transition: margin-top 1.5s ease-in-out;
+  -webkit-transition: margin-top 1.5s ease-in-out, height 1s ease-in-out;
+  -moz-transition: margin-top 1.5s ease-in-out, height 1s ease-in-out;
+  -o-transition: margin-top 1.5s ease-in-out, height 1s ease-in-out;
+  transition: margin-top 1.5s ease-in-out, height 1s ease-in-out;
 }
 
 body {
@@ -62,6 +62,67 @@ a:hover {
   width: 20%;
 }
 
+.footer {
+  position: absolute;
+
+  bottom: 0;
+
+  width: 100%;
+  height: 40px;
+
+  overflow: hidden;
+
+  color: #333;
+  background: url("pattern.png");
+
+  font-family: "Lucida Sans Unicode", "Lucida Sans", "Lucida Grande", "DejaVu Sans Condensed", sans-serif;
+  font-size: 14px;
+  text-align: left;
+
+  display: none;
+}
+
+.footer .infos {
+  margin-left: 20px;
+  padding: 10px;
+}
+
+.footer a {
+  color: black;
+  text-decoration: underline;
+}
+
+.footer a:hover {
+  text-decoration: none;
+}
+
+.footer .fb-like {
+  position: absolute;
+
+  top: 11px;
+  right: 175px;
+}
+
+.developedby {
+  display: block;
+
+  width: 170px;
+  height: 14px;
+
+  background: transparent url("diesocialisten.png") no-repeat 0 0;
+
+  position: absolute;
+
+  top: 14px;
+  right: 14px;
+
+  -webkit-transition: -webkit-filter 1s;
+}
+
+.developedby:hover {
+  -webkit-filter: invert(100%);
+}
+
 </style>
 </head>
 <body>
@@ -86,9 +147,34 @@ a:hover {
   <span class="missingLikes"></span>
 </div>
 
-<iframe width="560" height="315" src="" style="position: absolute; left: -5000px; top: -5000px;"></iframe>
+<div class="footer">
+  <div class="infos">
+    <a id="showInstructionsLink" href="#instructions">Show/hide instructions</a>
+    <br>
+    <br>
+    Fan Race takes up to 3 parameters: The <strong>we</strong> and <strong>vs</strong> parameters take vanity names or IDs of Facebook pages, e.g. &quot;CocaCola&quot; or &quot;40796308305&quot; for <a href="https://www.facebook.com/CocaCola" target="_blank">https://www.facebook.com/CocaCola</a>.
+    <br>
+    <strong>we</strong> is the page on the left (make it your own or your favourite page!. <strong>vs</strong> is the (probably evil) page on the right.
+    <br>
+    The third parameter, <strong>party</strong> is a YouTube video token (the part after &quot;?v=&quot; in the video URL), e.g. &quot;dQw4w9WgXcQ&quot; for <a href="http://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank">http://www.youtube.com/watch?v=dQw4w9WgXcQ</a>. This video's audio will be played celebratorily when your page's Like count surpasses that of the other page.
+  </div>
+
+  <div class="fb-like" data-href="http://indieboy86.github.com/FanRace" data-send="false" data-layout="button_count" data-width="100" data-show-faces="false" data-font="lucida grande"></div>
+  <a class="developedby" href="http://die.socialisten.at" target="_blank"></a>
+</div>
+
+<iframe class="celebration" width="560" height="315" src="" style="position: absolute; left: -5000px; top: -5000px;"></iframe>
 
 
 <script src="fanrace.min.js"></script>
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "http://connect.facebook.net/en_US/all.js#xfbml=1&appId=266006633513832";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 </body>
 </html>

@@ -34,7 +34,12 @@
     var
     we = params.we || "diesocialisten",
     theOthers = params.vs || "limesoda.at",
-    partySong = params.party || "kDwZAtE6yWY";
+    partySong = params.party || "kDwZAtE6yWY",
+    nohelp = params.nohelp || false;
+
+    if (!nohelp) {
+      $(".footer").show();
+    }
 
     $.ajax({
       url: "https://graph.facebook.com/" + we + "?fields=likes",
@@ -68,9 +73,9 @@
 
             $(".missingLikes").text((otherLikes - ourLikes).toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."));
 
-            if (!$("iframe").attr("src").length) {
+            if (!$("iframe.celebration").attr("src").length) {
               if (ourLikes > otherLikes) {
-                $("iframe").attr("src", "https://www.youtube-nocookie.com/embed/" + partySong + "?rel=0&amp;autoplay=1");
+                $("iframe.celebration").attr("src", "https://www.youtube-nocookie.com/embed/" + partySong + "?rel=0&amp;autoplay=1");
               }
             }
           },
@@ -95,6 +100,18 @@
   };
 
   $(window).on("resize", resizeText);
+
+  $(document).on("click", "#showInstructionsLink", function() {
+    var $footer = $(".footer"), infoHeight = $footer.find(".infos").outerHeight();
+
+    if ($footer.height() === infoHeight) {
+      $footer.css("height", 40);
+    } else {
+      $footer.css("height", infoHeight);
+    }
+
+    return false;
+  });
 
   interval = setInterval(function() {
     DOTHIS();
