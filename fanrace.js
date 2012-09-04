@@ -44,7 +44,7 @@
     }
 
     $.ajax({
-      url: "https://graph.facebook.com/" + we + "?fields=likes,name",
+      url: "https://graph.facebook.com/" + we + "?fields=likes,name&locale=en_US",
       dataType: "json",
       success: function(res) {
         var ourLikes = parseInt(res.likes, 10), linkText;
@@ -63,7 +63,7 @@
         }
 
         $.ajax({
-          url: "https://graph.facebook.com/" + theOthers + "?fields=likes,name",
+          url: "https://graph.facebook.com/" + theOthers + "?fields=likes,name&locale=en_US",
           dataType: "json",
           success: function(res) {
             if (!initComplete) {
