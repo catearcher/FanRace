@@ -8,6 +8,10 @@
   };
 
   resizeText = function() {
+    if (!initComplete) {
+      return;
+    }
+
     var divWidth = $(".likes").width(),
         spanWidth = Math.max($(".likes .fancount").eq(0).width(), $(".likes .fancount").eq(1).width()),
         fontSize = 100;
