@@ -29,7 +29,8 @@
   DOTHIS = function() {
     var
     us = params.us || "diesocialisten",
-    theOthers = params.vs || "limesoda.at";
+    theOthers = params.vs || "limesoda.at",
+    partySong = params.party || "kDwZAtE6yWY";
 
     $.ajax({
       url: "https://graph.facebook.com/" + us + "?fields=likes",
@@ -63,7 +64,7 @@
 
             if (!$("iframe").attr("src").length) {
               if (ourLikes > otherLikes) {
-                $("iframe").attr("src", "https://www.youtube-nocookie.com/embed/kDwZAtE6yWY?rel=0&amp;autoplay=1");
+                $("iframe").attr("src", "https://www.youtube-nocookie.com/embed/" + partySong + "?rel=0&amp;autoplay=1");
               }
             }
           }
