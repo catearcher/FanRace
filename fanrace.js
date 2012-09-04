@@ -1,7 +1,7 @@
 (function() {
   var
   verticalCenter, resizeText, DOTHIS,
-  initComplete = false, params = {}, temp;
+  initComplete = false, params = {}, temp, interval;
 
   verticalCenter = function() {
     $(".allContainer").css("marginTop", ($(window).height() - $(".allContainer").height()) / 2);
@@ -32,20 +32,20 @@
 
   DOTHIS = function() {
     var
-    us = params.us || "diesocialisten",
+    we = params.we || "diesocialisten",
     theOthers = params.vs || "limesoda.at",
     partySong = params.party || "kDwZAtE6yWY";
 
     $.ajax({
-      url: "https://graph.facebook.com/" + us + "?fields=likes",
+      url: "https://graph.facebook.com/" + we + "?fields=likes",
       dataType: "json",
       success: function(res) {
         var ourLikes = parseInt(res.likes, 10);
         $("#ourLikes .fancount").text(ourLikes.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."));
 
         if (!initComplete) {
-          $("#ourLikes a").text(us);
-          $("#ourLikes a").attr("href", "https://www.facebook.com/" + us);
+          $("#ourLikes a").text(we);
+          $("#ourLikes a").attr("href", "https://www.facebook.com/" + we);
         }
 
         $.ajax({
@@ -73,15 +73,23 @@
                 $("iframe").attr("src", "https://www.youtube-nocookie.com/embed/" + partySong + "?rel=0&amp;autoplay=1");
               }
             }
+          },
+          error: function(e) {
+            clearInterval(interval);
+            $(".allContainer").html("The <strong>" + theOthers + "</strong> fan page was not found. Try another value for the vs parameter!").show();
           }
         });
+      },
+      error: function(e) {
+        clearInterval(interval);
+        $(".allContainer").html("The <strong>" + we + "</strong> fan page was not found. Try another value for the we parameter!").show();
       }
     });
   };
 
   $(window).on("resize", resizeText);
 
-  setInterval(function() {
+  interval = setInterval(function() {
     DOTHIS();
   }, 5000);
 
