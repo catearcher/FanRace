@@ -36,7 +36,7 @@
     var
     we = params.we || "diesocialisten",
     theOthers = params.vs || "limesoda.at",
-    partySong = params.party || "dQw4w9WgXcQ",
+    partySong = params.party || "nOYY6futWBc",
     nohelp = params.nohelp || false;
 
     if (!nohelp) {
