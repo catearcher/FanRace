@@ -76,13 +76,20 @@
           },
           error: function(e) {
             clearInterval(interval);
-            $(".allContainer").html("The <strong>" + theOthers + "</strong> fan page was not found. Try another value for the vs parameter!").show();
+
+            if (!initComplete) {
+              $(".allContainer").html("The <strong>" + theOthers + "</strong> fan page was not found. Try another value for the vs parameter!").show();
+            }
           }
         });
       },
       error: function(e) {
         clearInterval(interval);
-        $(".allContainer").html("The <strong>" + we + "</strong> fan page was not found. Try another value for the we parameter!").show();
+
+        if (!initComplete) {
+          $(".allContainer").html("The <strong>" + we + "</strong> fan page was not found. Try another value for the we parameter!").show();
+        }
+        
       }
     });
   };
