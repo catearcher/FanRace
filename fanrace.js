@@ -41,11 +41,11 @@
       dataType: "json",
       success: function(res) {
         var ourLikes = parseInt(res.likes, 10);
-        $("#ourLikes .fancount").text(ourLikes.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."));
+        $(".ourLikes .fancount").text(ourLikes.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."));
 
         if (!initComplete) {
-          $("#ourLikes a").text(we);
-          $("#ourLikes a").attr("href", "https://www.facebook.com/" + we);
+          $(".ourLikes a").text(we);
+          $(".ourLikes a").attr("href", "https://www.facebook.com/" + we);
         }
 
         $.ajax({
@@ -53,8 +53,8 @@
           dataType: "json",
           success: function(res) {
             if (!initComplete) {
-              $("#otherLikes a").text(theOthers);
-              $("#otherLikes a").attr("href", "https://www.facebook.com/" + theOthers);
+              $(".otherLikes a").text(theOthers);
+              $(".otherLikes a").attr("href", "https://www.facebook.com/" + theOthers);
 
               $(".allContainer").fadeIn(3000);
 
@@ -64,9 +64,9 @@
             }
 
             var otherLikes = parseInt(res.likes, 10);
-            $("#otherLikes .fancount").text(otherLikes.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."));
+            $(".otherLikes .fancount").text(otherLikes.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."));
 
-            $("#missingLikes").text((otherLikes - ourLikes).toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."));
+            $(".missingLikes").text((otherLikes - ourLikes).toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."));
 
             if (!$("iframe").attr("src").length) {
               if (ourLikes > otherLikes) {
