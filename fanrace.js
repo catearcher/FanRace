@@ -52,6 +52,8 @@
               $("#otherLikes a").text(theOthers);
               $("#otherLikes a").attr("href", "https://www.facebook.com/" + theOthers);
 
+              $(".allContainer").show();
+
               setTimeout(resizeText, 0);
 
               initComplete = true;
