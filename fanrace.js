@@ -27,14 +27,21 @@
   };
 
   DOTHIS = function() {
-    var theOthers = params.vs || "limesoda.at";
+    var
+    us = params.us || "diesocialisten",
+    theOthers = params.vs || "limesoda.at";
 
     $.ajax({
-      url: "https://graph.facebook.com/diesocialisten?fields=likes",
+      url: "https://graph.facebook.com/" + us + "?fields=likes",
       dataType: "json",
       success: function(res) {
-        var socialistenLikes = parseInt(res.likes, 10);
-        $("#socialistenLikes .fancount").text(socialistenLikes.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."));
+        var ourLikes = parseInt(res.likes, 10);
+        $("#ourLikes .fancount").text(ourLikes.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."));
+
+        if (!initComplete) {
+          $("#ourLikes a").text(us);
+          $("#ourLikes a").attr("href", "https://www.facebook.com/" + us);
+        }
 
         $.ajax({
           url: "https://graph.facebook.com/" + theOthers + "?fields=likes",
@@ -52,10 +59,10 @@
             var otherLikes = parseInt(res.likes, 10);
             $("#otherLikes .fancount").text(otherLikes.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."));
 
-            $("#missingLikes").text((otherLikes - socialistenLikes).toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."));
+            $("#missingLikes").text((otherLikes - ourLikes).toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."));
 
             if (!$("iframe").attr("src").length) {
-              if (socialistenLikes > otherLikes) {
+              if (ourLikes > otherLikes) {
                 $("iframe").attr("src", "https://www.youtube-nocookie.com/embed/kDwZAtE6yWY?rel=0&amp;autoplay=1");
               }
             }
