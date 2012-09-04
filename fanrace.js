@@ -14,7 +14,7 @@
 
     var divWidth = $(".likes").width(),
         spanWidth = Math.max($(".likes .fancount").eq(0).width(), $(".likes .fancount").eq(1).width()),
-        fontSize = 100;
+        fontSize = 100, tries = 0;
 
     do {
       fontSize++;
@@ -23,7 +23,9 @@
 
       divWidth = $(".likes").width();
       spanWidth = Math.max($(".likes .fancount").eq(0).width(), $(".likes .fancount").eq(1).width());
-    } while (divWidth > spanWidth);
+
+      tries++;
+    } while (divWidth > spanWidth || tries > 1000);
 
     $("body").css("fontSize", Math.round(fontSize / 4));
 
