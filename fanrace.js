@@ -44,23 +44,36 @@
     }
 
     $.ajax({
-      url: "https://graph.facebook.com/" + we + "?fields=likes",
+      url: "https://graph.facebook.com/" + we + "?fields=likes,name",
       dataType: "json",
       success: function(res) {
-        var ourLikes = parseInt(res.likes, 10);
+        var ourLikes = parseInt(res.likes, 10), linkText;
+
         $(".ourLikes .fancount").text(ourLikes.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."));
 
         if (!initComplete) {
-          $(".ourLikes a").text(we);
+          if (!isNaN(we) || ("" + we.length) + 3 >= res.name.length) {
+            linkText = res.name;
+          } else {
+            linkText = we;
+          }
+
+          $(".ourLikes a").text(linkText);
           $(".ourLikes a").attr("href", "https://www.facebook.com/" + we);
         }
 
         $.ajax({
-          url: "https://graph.facebook.com/" + theOthers + "?fields=likes",
+          url: "https://graph.facebook.com/" + theOthers + "?fields=likes,name",
           dataType: "json",
           success: function(res) {
             if (!initComplete) {
-              $(".otherLikes a").text(theOthers);
+              if (!isNaN(theOthers) || ("" + theOthers.length) >= res.name.length) {
+                linkText = res.name;
+              } else {
+                linkText = theOthers;
+              }
+
+              $(".otherLikes a").text(linkText);
               $(".otherLikes a").attr("href", "https://www.facebook.com/" + theOthers);
 
               $(".allContainer").fadeIn(3000);
