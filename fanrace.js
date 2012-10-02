@@ -1,7 +1,30 @@
 (function() {
   var
-  verticalCenter, resizeText, DOTHIS,
-  initComplete = false, params = {}, temp, interval;
+  verticalCenter, resizeText, DOTHIS, onInitComplete,
+  initComplete = false, params = {}, temp, interval, partySong, mode;
+
+  onInitComplete = function() {
+    $(".allContainer").fadeIn(3000);
+
+    setTimeout(resizeText, 0);
+
+    setTimeout(function() {
+      $(".footer").css("height", 40);
+    }, 5000);
+    
+
+    initComplete = true;
+  };
+
+  checkMissingLikes = function(ourLikes, otherLikes) {
+    $(".missingLikes").text((otherLikes - ourLikes).toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."));
+
+    if (!$("iframe.celebration").attr("src").length) {
+      if (ourLikes > otherLikes) {
+        $("iframe.celebration").attr("src", "https://www.youtube-nocookie.com/embed/" + partySong + "?rel=0&amp;autoplay=1");
+      }
+    }
+  };
 
   verticalCenter = function() {
     $(".allContainer").css("marginTop", ($(window).height() - $(".allContainer").height()) / 2);
@@ -13,19 +36,19 @@
     }
 
     var divWidth = $(".likes").width(),
-        spanWidth = Math.max($(".likes .fancount").eq(0).width(), $(".likes .fancount").eq(1).width()),
+        spanWidth = Math.max($(".likes .fancount").eq(0).width(), $(".likes .fancount").eq(1).width() || 0),
         fontSize = 100, tries = 0;
 
     do {
-      fontSize++;
+      fontSize += 3;
 
       $(".likes span").css("fontSize", fontSize);
 
       divWidth = $(".likes").width();
-      spanWidth = Math.max($(".likes .fancount").eq(0).width(), $(".likes .fancount").eq(1).width());
+      spanWidth = Math.max($(".likes .fancount").eq(0).width(), $(".likes .fancount").eq(1).width() || 0);
 
       tries++;
-    } while (divWidth > spanWidth || tries > 1000);
+    } while (divWidth > spanWidth && tries < 500);
 
     $("body").css("fontSize", Math.round(fontSize / 4));
 
@@ -36,11 +59,18 @@
     var
     we = params.we || "diesocialisten",
     theOthers = params.vs || "limesoda.at",
-    partySong = params.party || "7UCm6uyzNE8",
     nohelp = params.nohelp || false;
+
+    mode = params.mode || "standard";
+    partySong = params.party || "7UCm6uyzNE8";
 
     if (!nohelp) {
       $(".footer").show();
+    }
+
+    if (mode === "single") {
+      $("body").addClass("mode-single");
+      theOthers = parseInt(theOthers, 10) || 10000;
     }
 
     $.ajax({
@@ -62,51 +92,45 @@
           $(".ourLikes a").attr("href", "https://www.facebook.com/" + we);
         }
 
-        $.ajax({
-          url: "https://graph.facebook.com/" + theOthers + "?fields=likes,name&locale=en_US",
-          dataType: "json",
-          success: function(res) {
-            if (!initComplete) {
-              if (!isNaN(theOthers) || ("" + theOthers.length) >= res.name.length) {
-                linkText = res.name;
-              } else {
-                linkText = theOthers;
-              }
-
-              $(".otherLikes a").text(linkText);
-              $(".otherLikes a").attr("href", "https://www.facebook.com/" + theOthers);
-
-              $(".allContainer").fadeIn(3000);
-
-              setTimeout(resizeText, 0);
-
-              setTimeout(function() {
-                $(".footer").css("height", 40);
-              }, 5000);
-              
-
-              initComplete = true;
-            }
-
-            var otherLikes = parseInt(res.likes, 10);
-            $(".otherLikes .fancount").text(otherLikes.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."));
-
-            $(".missingLikes").text((otherLikes - ourLikes).toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."));
-
-            if (!$("iframe.celebration").attr("src").length) {
-              if (ourLikes > otherLikes) {
-                $("iframe.celebration").attr("src", "https://www.youtube-nocookie.com/embed/" + partySong + "?rel=0&amp;autoplay=1");
-              }
-            }
-          },
-          error: function(e) {
-            clearInterval(interval);
-
-            if (!initComplete) {
-              $(".allContainer").html("The <strong>" + theOthers + "</strong> fan page was not found. Try another value for the vs parameter!").show();
-            }
+        if (mode === "single") {
+          if (!initComplete) {
+            onInitComplete();
           }
-        });
+
+          checkMissingLikes(ourLikes, theOthers);
+        } else {
+          $.ajax({
+            url: "https://graph.facebook.com/" + theOthers + "?fields=likes,name&locale=en_US",
+            dataType: "json",
+            success: function(res) {
+              if (!initComplete) {
+                if (!isNaN(theOthers) || ("" + theOthers.length) >= res.name.length) {
+                  linkText = res.name;
+                } else {
+                  linkText = theOthers;
+                }
+
+                $(".otherLikes a").text(linkText);
+                $(".otherLikes a").attr("href", "https://www.facebook.com/" + theOthers);
+
+                onInitComplete();
+              }
+
+              var otherLikes = parseInt(res.likes, 10);
+              $(".otherLikes .fancount").text(otherLikes.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."));
+
+
+              checkMissingLikes(ourLikes, otherLikes);
+            },
+            error: function(e) {
+              clearInterval(interval);
+
+              if (!initComplete) {
+                $(".allContainer").html("The <strong>" + theOthers + "</strong> fan page was not found. Try another value for the vs parameter!").show();
+              }
+            }
+          });
+        }
       },
       error: function(e) {
         clearInterval(interval);
