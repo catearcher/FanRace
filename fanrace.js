@@ -58,7 +58,7 @@
   DOTHIS = function() {
     var
     we = params.we || "diesocialisten",
-    theOthers = params.vs || params.goal || "limesoda.at",
+    theOthers = params.vs || params.goal || "LastfmScrobbler",
     nohelp = params.nohelp || false;
 
     mode = params.mode || "standard";
