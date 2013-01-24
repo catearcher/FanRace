@@ -62,7 +62,7 @@
     nohelp = params.nohelp || false;
 
     mode = params.mode || "standard";
-    partySong = params.party || "7UCm6uyzNE8";
+    partySong = params.party || "04854XqcfCY";
 
     if (!nohelp) {
       $(".footer").show();
