@@ -70,7 +70,7 @@
 
     if (mode === "single") {
       $("body").addClass("mode-single");
-      theOthers = parseInt(theOthers, 10) || 10000;
+      theOthers = parseInt(theOthers, 10) || 15000;
     }
 
     $.ajax({
