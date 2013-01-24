@@ -20,7 +20,7 @@
     $(".missingLikes").text((otherLikes - ourLikes).toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."));
 
     if (!$("iframe.celebration").attr("src").length) {
-      if (ourLikes > otherLikes) {
+      if (ourLikes >= otherLikes) {
         $("iframe.celebration").attr("src", "https://www.youtube-nocookie.com/embed/" + partySong + "?rel=0&amp;autoplay=1");
       }
     }
