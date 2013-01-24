@@ -21,7 +21,7 @@
 
     if (!$("iframe.celebration").attr("src").length) {
       if (ourLikes >= otherLikes) {
-        $("iframe.celebration").attr("src", "https://www.youtube-nocookie.com/embed/" + partySong + "?rel=0&amp;autoplay=1");
+        $("iframe.celebration").attr("src", "//www.youtube-nocookie.com/embed/" + partySong + "?rel=0&amp;autoplay=1");
       }
     }
   };
